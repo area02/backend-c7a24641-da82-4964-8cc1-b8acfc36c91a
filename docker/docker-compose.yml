@@ -1,0 +1,36 @@
+version: '3.6'
+
+services:
+  laravel:
+    image: area02/laravel:latest
+    container_name: laravel-d29cf88b
+    volumes:
+      - ../laravel:/var/www/html
+    networks:
+      - backend
+    ports:
+      - 8080:80
+    depends_on:
+      - postgres
+      - redis
+  redis:
+    image: redis:6.0.12
+    networks:
+      - backend
+    restart: always
+    volumes:
+      - ./redisdata:/data
+  postgres:
+    image: postgres:14
+    networks:
+      - backend
+    volumes:
+      - ./postgresdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=laravel
+networks:
+  backend:
+    name: backend
+    driver: bridge
