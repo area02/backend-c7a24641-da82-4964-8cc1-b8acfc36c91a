@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -26,5 +27,34 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $e)
+    {
+        $response = [
+            'message' => $e->getMessage(),
+        ];
+
+        if (config('app.debug')) {
+            $response['exception'] = get_class($e);
+            $response['error'] = $e->getMessage();
+            $response['trace'] = $e->getTrace();
+        }
+
+        // Default response of 400
+        $status = 400;
+
+        // If this exception is an instance of HttpException
+        if ($this->isHttpException($e)) {
+            // Grab the HTTP status code from the Exception
+            $status = $e->getStatusCode();
+        } else if ($e instanceof AuthenticationException) {
+            // AuthenticationException
+            $status = 401;
+        }
+        $response['status'] = $status;
+
+        // Return a JSON response with the response array and status code
+        return response()->json($response, $status);
     }
 }

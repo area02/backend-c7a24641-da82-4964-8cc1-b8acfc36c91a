@@ -1,0 +1,667 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Blog",
+        "description": "Blog API Document",
+        "contact": {
+            "email": "tech@area02.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/": {},
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "註冊使用者",
+                "description": "註冊使用者",
+                "operationId": "d764dd091cc4494ae0baf360b03319f3",
+                "requestBody": {
+                    "description": "User",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "使用者名稱",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "email",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "password",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "請求成功"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "登入使用者",
+                "description": "登入使用者",
+                "operationId": "8dcb70df1020986038d098cc08d05dae",
+                "requestBody": {
+                    "description": "User",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "description": "email",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "password",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "請求成功"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            }
+        },
+        "/api/auth/profile": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "使用者資訊",
+                "description": "使用者資訊",
+                "operationId": "f321eacc02288d0965b7ed0468bf91eb",
+                "responses": {
+                    "200": {
+                        "description": "請求成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "description": "id",
+                                            "type": "integer"
+                                        },
+                                        "name": {
+                                            "description": "name",
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "description": "email",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            }
+        },
+        "/api/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "登出",
+                "description": "登出",
+                "operationId": "69281b12abb272c76871f19cb17ca563",
+                "responses": {
+                    "201": {
+                        "description": "請求成功"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            }
+        },
+        "/api/comments": {
+            "post": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "新增文章評論",
+                "description": "新增文章評論",
+                "operationId": "4fb7440c9898a527b1885c87a453d253",
+                "requestBody": {
+                    "description": "Comments",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "postId",
+                                    "content"
+                                ],
+                                "properties": {
+                                    "postId": {
+                                        "description": "文章id(posts.id)",
+                                        "type": "integer"
+                                    },
+                                    "content": {
+                                        "description": "content",
+                                        "type": "string"
+                                    },
+                                    "isAvailable": {
+                                        "description": "是否公開",
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "請求成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Comments"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            }
+        },
+        "/api/comments/{id}/disable": {
+            "put": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "評論者本人將文章的評論改成私人",
+                "description": "評論者本人將文章的評論改成私人",
+                "operationId": "86a33d752b78bd754db0056e8f66a8ea",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "評論id(comments.id)",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "請求成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Comments"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            }
+        },
+        "/api/posts": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "抓取所有部落格文章",
+                "description": "抓取所有部落格文章(不包含私人)",
+                "operationId": "e93214eff756c07fefd10a2a8781abf0",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "頁碼",
+                        "required": false
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "每頁幾筆",
+                        "required": false
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "排序欄位(id: post.id, createdAt: 新增時間)",
+                        "required": false
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "排序方式(asc: 升冪排序, desc: 降冪排序)",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "請求成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "posts": {
+                                            "description": "文章",
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Posts"
+                                            }
+                                        },
+                                        "total": {
+                                            "description": "文章總數",
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "新增部落格文章",
+                "description": "新增部落格文章",
+                "operationId": "dccb43378a995a48a4843a0b3f10f286",
+                "requestBody": {
+                    "description": "Posts",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "content"
+                                ],
+                                "properties": {
+                                    "content": {
+                                        "description": "content",
+                                        "type": "string"
+                                    },
+                                    "isAvailable": {
+                                        "description": "是否公開",
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "請求成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Posts"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            }
+        },
+        "/api/posts/{id}/disable": {
+            "put": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "作者將文章改成私人",
+                "description": "作者將文章改成私人",
+                "operationId": "081b0f51ef230c9d32193fc32a54013d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "文章id(post.id)",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "請求成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Posts"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            }
+        },
+        "/api/posts/{id}": {
+            "put": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "作者更新部落格文章",
+                "description": "作者更新部落格文章",
+                "operationId": "929614537d76a081a92170a41ed3bdb3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "文章id(posts.id)",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "description": "Posts",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "content": {
+                                        "description": "content",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "請求成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Posts"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Comments": {
+                "properties": {
+                    "content": {
+                        "description": "content",
+                        "type": "string"
+                    },
+                    "userName": {
+                        "description": "評論者名字",
+                        "type": "string"
+                    },
+                    "isAvailable": {
+                        "description": "是否公開",
+                        "type": "boolean"
+                    },
+                    "createdAt": {
+                        "description": "新增時間",
+                        "type": "string",
+                        "format": "timestamp",
+                        "example": "1721277196"
+                    },
+                    "updatedAt": {
+                        "description": "更新時間",
+                        "type": "string",
+                        "format": "timestamp",
+                        "example": "1721277196"
+                    }
+                },
+                "type": "object"
+            },
+            "Posts": {
+                "properties": {
+                    "content": {
+                        "description": "content",
+                        "type": "string"
+                    },
+                    "userName": {
+                        "description": "作者名字",
+                        "type": "string"
+                    },
+                    "isAvailable": {
+                        "description": "是否公開",
+                        "type": "boolean"
+                    },
+                    "comments": {
+                        "description": "評論",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Comments"
+                        }
+                    },
+                    "createdAt": {
+                        "description": "新增時間",
+                        "type": "string",
+                        "format": "timestamp",
+                        "example": "1721277196"
+                    },
+                    "updatedAt": {
+                        "description": "更新時間",
+                        "type": "string",
+                        "format": "timestamp",
+                        "example": "1721277196"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "success"
+            },
+            "400": {
+                "description": "客戶端錯誤",
+                "content": {
+                    "application/json": {
+                        "schema": {},
+                        "example": {
+                            "message": "客戶端錯誤",
+                            "status": 400
+                        }
+                    }
+                }
+            },
+            "401": {
+                "description": "身份驗證失敗",
+                "content": {
+                    "application/json": {
+                        "schema": {},
+                        "example": {
+                            "message": "Unauthenticated",
+                            "status": 401
+                        }
+                    }
+                }
+            },
+            "404": {
+                "description": "找不到請求的資源",
+                "content": {
+                    "application/json": {
+                        "schema": {},
+                        "example": {
+                            "message": "Not Found",
+                            "status": 404
+                        }
+                    }
+                }
+            },
+            "405": {
+                "description": "不支援此方法",
+                "content": {
+                    "application/json": {
+                        "schema": {},
+                        "example": {
+                            "message": "Method Not Allowed",
+                            "status": 405
+                        }
+                    }
+                }
+            },
+            "500": {
+                "description": "伺服器發生錯誤",
+                "content": {
+                    "application/json": {
+                        "schema": {},
+                        "example": {
+                            "message": "伺服器發生錯誤",
+                            "status": 500
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Comments",
+            "description": "Comments"
+        },
+        {
+            "name": "Posts",
+            "description": "Posts"
+        }
+    ]
+}
